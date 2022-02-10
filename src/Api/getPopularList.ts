@@ -1,9 +1,10 @@
 import { api_key } from "../configValues";
 
-export async function getMovieById(id: string) {
+export async function getPopularList(page?: string) {
+  const pageNumber = 12;
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&page=${pageNumber}`,
       {
         method: "GET",
         headers: {
@@ -12,7 +13,7 @@ export async function getMovieById(id: string) {
       }
     );
     if (response.status === 200) {
-      return (await response.json()) as IMovie;
+      return (await response.json()) as IPopularList;
     } else {
       throw Error(`${response.status}: ${response.statusText}`);
     }

@@ -11,6 +11,7 @@ export const theme: Theme = {
     background: "#fff",
     primary: "#2185d0",
     secondary: "#c600d4",
+    tertiary: "#d3d3d3",
   },
   buttons: {
     primary: {

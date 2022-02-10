@@ -51,6 +51,26 @@ interface IMovie {
   vote_average: number;
   vote_count: number;
 }
-// interface IMovieApi {
 
-// }
+interface IMoviePopular {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string; //FIXME: create type
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+interface IPopularList {
+  page: number;
+  results: IMoviePopular[];
+  total_pages: number;
+  total_results: number;
+}

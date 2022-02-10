@@ -1,32 +1,52 @@
 /** @jsxImportSource theme-ui */
 
 import React from "react";
-import { Button } from "theme-ui";
-import { getMovieById } from "../../Api";
-import UsersList from "../../Components/UsersList";
+import { useRecoilState } from "recoil";
+import { Heading, Paragraph } from "theme-ui";
+import { getPopularList } from "../../Api";
+import MoviesList from "../../Components/MoviesList";
+import {
+  popularListResultState,
+  popularListState,
+  textState,
+} from "../../store";
 
 const Home: React.FC = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [movieDetails, setMovieDetails] = React.useState<IMovie | null>(null);
+  const [text, setText] = useRecoilState(textState);
+  const [popularListResult, setPopularListResult] = useRecoilState(
+    popularListResultState
+  );
+  const [popularList, setPopularList] = useRecoilState(popularListState);
+  const changeText = () => {
+    console.log(text);
+    setText("123");
+    console.log(text);
+  };
+  console.log(text);
 
   React.useEffect(() => {
-    getMovieById("123").then(
-      (result) => {
-        setMovieDetails(result);
-        setIsLoading(false);
-      },
-      () => setIsLoading(false)
-    );
+    getPopularList()
+      .then((result) => {
+        setPopularListResult(result);
+        setPopularList(result.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
+  console.log("popularListResult", popularListResult);
+  console.log("popularList", popularList);
+
   return (
-    <div>
-      <div>
-        <p>what we have</p>
-        <p>{movieDetails && movieDetails.original_title}</p>
-        <p>{movieDetails && movieDetails.homepage}</p>
-      </div>
-      <div
+    <React.Fragment>
+      <Heading as="h1">Popular movies</Heading>
+      <Paragraph as="body">
+        List of the current popular movies on TMDB (The Movie Database). This
+        list updates daily.
+      </Paragraph>
+
+      {/* <div
         sx={{
           fontWeight: "bold",
           fontSize: 4, // picks up value from `theme.fontSizes[4]`
@@ -41,10 +61,10 @@ const Home: React.FC = () => {
       >
         Hello Hello Hello Hello Hello Hello Hello Hello Hello
       </div>
-      <Button>Primary Button</Button>
-      <Button variant="secondary">Secondary Button</Button>
-      <UsersList />
-    </div>
+      <Button onClick={changeText}>Primary Button</Button>
+      <Button variant="secondary">Secondary Button</Button> */}
+      <MoviesList />
+    </React.Fragment>
   );
 };
 
