@@ -52,7 +52,7 @@ interface IMovie {
   vote_count: number;
 }
 
-interface IMoviePopular {
+interface IMovieShort {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -68,7 +68,7 @@ interface IMoviePopular {
   vote_average: number;
   vote_count: number;
 }
-interface IPopularList {
+interface IMoviesList {
   page: number;
   results: IMoviePopular[];
   total_pages: number;

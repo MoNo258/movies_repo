@@ -7,10 +7,45 @@ export const textState = atom({
 
 export const popularListResultState = atom({
   key: "popularListResultState", // unique ID (with respect to other atoms/selectors)
-  default: {} as IPopularList, // default value (aka initial value)
+  default: {} as IMoviesList, // default value (aka initial value)
 });
 
 export const popularListState = atom({
   key: "popularListState",
-  default: [] as IMoviePopular[],
+  default: [] as IMovieShort[],
+});
+
+export const topRatedListState = atom({
+  key: "topRatedListState",
+  default: [] as IMovieShort[],
+});
+
+export const isPopularListState = atom({
+  key: "isPopularListState",
+  default: true as boolean,
+});
+
+export const popularListLoaderState = atom({
+  key: "popularListLoaderState",
+  default: true as boolean,
+});
+
+export const topRatedListLoaderState = atom({
+  key: "topRatedListLoaderState",
+  default: true as boolean,
+});
+
+export const listsPageState = atom({
+  key: "listsPageState",
+  default: 1 as number,
+});
+
+export const popularTotalPagesState = atom({
+  key: "popularTotalPagesState",
+  default: 0 as number,
+});
+
+export const topRatedTotalPagesState = atom({
+  key: "topRatedTotalPagesState",
+  default: 0 as number,
 });

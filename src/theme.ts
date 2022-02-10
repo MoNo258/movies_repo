@@ -26,6 +26,14 @@ export const theme: Theme = {
         cursor: "pointer",
       },
     },
+    blocked: {
+      color: "white",
+      bg: "tertiary",
+      "&:hover": {
+        bg: "dark",
+        cursor: "not-allowed",
+      },
+    },
   },
   cards: {
     primary: {

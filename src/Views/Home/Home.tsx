@@ -1,51 +1,57 @@
 /** @jsxImportSource theme-ui */
-
 import React from "react";
 import { useRecoilState } from "recoil";
-import { Heading, Paragraph } from "theme-ui";
-import { getPopularList } from "../../Api";
+import { Button, Flex, Heading, Paragraph, Text } from "theme-ui";
 import MoviesList from "../../Components/MoviesList";
 import {
-  popularListResultState,
-  popularListState,
-  textState,
+  isPopularListState,
+  listsPageState,
+  popularTotalPagesState,
+  topRatedTotalPagesState,
 } from "../../store";
 
 const Home: React.FC = () => {
-  const [text, setText] = useRecoilState(textState);
-  const [popularListResult, setPopularListResult] = useRecoilState(
-    popularListResultState
-  );
-  const [popularList, setPopularList] = useRecoilState(popularListState);
-  const changeText = () => {
-    console.log(text);
-    setText("123");
-    console.log(text);
+  const [isPopularList] = useRecoilState(isPopularListState);
+  const [listsPage, setListsPage] = useRecoilState(listsPageState);
+  const [popularTotalPages] = useRecoilState(popularTotalPagesState);
+  const [topRatedTotalPages] = useRecoilState(topRatedTotalPagesState);
+  const isLastPage =
+    (isPopularList && listsPage === popularTotalPages) ||
+    (!isPopularList && listsPage === topRatedTotalPages);
+
+  const handleNextPage = () => {
+    if (isPopularList && listsPage === popularTotalPages) {
+      return;
+    } else if (!isPopularList && listsPage === topRatedTotalPages) {
+      return;
+    } else {
+      setListsPage(listsPage + 1);
+    }
   };
-  console.log(text);
-
-  React.useEffect(() => {
-    getPopularList()
-      .then((result) => {
-        setPopularListResult(result);
-        setPopularList(result.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  console.log("popularListResult", popularListResult);
-  console.log("popularList", popularList);
+  const handlePrevPage = () => {
+    if (listsPage === 1) {
+      return;
+    } else {
+      setListsPage(listsPage - 1);
+    }
+  };
 
   return (
     <React.Fragment>
-      <Heading as="h1">Popular movies</Heading>
-      <Paragraph as="body">
-        List of the current popular movies on TMDB (The Movie Database). This
-        list updates daily.
-      </Paragraph>
-
+      <Heading as="h1">
+        {isPopularList ? "Popular movies" : "Top rated movies"}
+      </Heading>
+      {isPopularList && (
+        <Paragraph as="p">
+          List of the current popular movies on TMDB (The Movie Database). This
+          list updates daily.
+        </Paragraph>
+      )}
+      {!isPopularList && (
+        <Paragraph as="p">
+          List of the top rated movies on (The Movie Database).
+        </Paragraph>
+      )}
       {/* <div
         sx={{
           fontWeight: "bold",
@@ -64,6 +70,23 @@ const Home: React.FC = () => {
       <Button onClick={changeText}>Primary Button</Button>
       <Button variant="secondary">Secondary Button</Button> */}
       <MoviesList />
+      <Flex>
+        <Button
+          onClick={handlePrevPage}
+          variant={listsPage === 1 ? "blocked" : "secondary"}
+          m={2}
+        >
+          Previous page
+        </Button>
+        <Text m={2} p={2}>{`Page: ${listsPage}`}</Text>
+        <Button
+          onClick={handleNextPage}
+          variant={isLastPage ? "blocked" : "secondary"}
+          m={2}
+        >
+          Next page
+        </Button>
+      </Flex>
     </React.Fragment>
   );
 };

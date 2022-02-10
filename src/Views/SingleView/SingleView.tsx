@@ -1,14 +1,14 @@
 /** @jsxImportSource theme-ui */
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
+  Button,
   Card,
   Divider,
   Flex,
   Heading,
-  Image,
-  Link,
   Paragraph,
   Spinner,
   Text,
@@ -16,6 +16,7 @@ import {
 import { getMovieById } from "../../Api";
 
 const SingleView: React.FC = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(true);
   const [movieDetails, setMovieDetails] = React.useState<IMovie | null>(null);
   const id = window.location.pathname.slice(1);
@@ -52,16 +53,16 @@ const SingleView: React.FC = () => {
 
   return (
     <Flex style={{ flexDirection: "column", width: "80vw", margin: "auto" }}>
-      <Link href="/" style={{ width: "100%", textAlign: "start" }} py={2}>
+      <Button onClick={() => navigate(-1)} style={{ width: "110px" }} my={2}>
         Back to list
-      </Link>
+      </Button>
       <Card>
         {isLoading ? (
           <LoadingCard />
         ) : (
           <React.Fragment>
-            <Image src={movieDetails?.poster_path} />
-            <Heading as="h3">{movieDetails?.title}</Heading>
+            {/* <Image src={movieDetails?.poster_path} /> */}
+            <Heading as="h2">{movieDetails?.title}</Heading>
             <Heading as="h4">{`Score: ${movieDetails?.vote_average} (votes: ${movieDetails?.vote_count})`}</Heading>
             <Divider />
             <Text>Status: {movieDetails?.status}</Text>
