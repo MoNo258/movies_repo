@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export const textState = atom({
   key: "textState", // unique ID (with respect to other atoms/selectors)
@@ -48,4 +48,35 @@ export const popularTotalPagesState = atom({
 export const topRatedTotalPagesState = atom({
   key: "topRatedTotalPagesState",
   default: 0 as number,
+});
+
+const emptyMovieByIdBasic = {
+  id: 0,
+  overview: "",
+  title: "",
+  vote_average: 0,
+  vote_count: 0,
+};
+export const movieByIdBasicState = atom({
+  key: "movieByIdBasicState",
+  default: emptyMovieByIdBasic as IMovieBasic,
+});
+
+export const toWatchListState = atom({
+  key: "toWatchListState",
+  default: [] as IMovieBasic[],
+});
+
+export const favoritesListState = atom({
+  key: "favoritesListState",
+  default: [] as IMovieBasic[],
+});
+
+export const getByIdState = selector({
+  key: "getByIdState", // unique ID (with respect to other atoms/selectors)
+  get: ({ get }) => {
+    const result = get(movieByIdBasicState);
+
+    return result;
+  },
 });

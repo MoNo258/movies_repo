@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "theme-ui";
+import UsersLists from "./Components/UsersLists";
 import "./index.css";
 import { theme } from "./theme";
 import Home from "./Views/Home/Home";
@@ -16,8 +17,8 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* <Route path="/list" element={<List />} /> */}
               <Route path="/:id" element={<SingleView />} />
+              <Route path="/list" element={<UsersLists />} />
             </Routes>
           </BrowserRouter>
         </RecoilRoot>

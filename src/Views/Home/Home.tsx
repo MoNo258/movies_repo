@@ -73,7 +73,7 @@ const Home: React.FC = () => {
       <Flex>
         <Button
           onClick={handlePrevPage}
-          variant={listsPage === 1 ? "blocked" : "secondary"}
+          variant={listsPage === 1 ? "disabled" : "secondary"}
           m={2}
         >
           Previous page
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
         <Text m={2} p={2}>{`Page: ${listsPage}`}</Text>
         <Button
           onClick={handleNextPage}
-          variant={isLastPage ? "blocked" : "secondary"}
+          variant={isLastPage ? "disabled" : "secondary"}
           m={2}
         >
           Next page

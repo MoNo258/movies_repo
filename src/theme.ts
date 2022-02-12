@@ -26,7 +26,7 @@ export const theme: Theme = {
         cursor: "pointer",
       },
     },
-    blocked: {
+    disabled: {
       color: "white",
       bg: "tertiary",
       "&:hover": {

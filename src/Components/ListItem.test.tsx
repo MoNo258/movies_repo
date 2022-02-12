@@ -11,6 +11,8 @@ describe("ListItem", () => {
       overview="Sed nec venenatis felis. Aenean efficitur et massa auctor auctor."
       id="ckq4zb7p600c50984ew55i0jg"
       showMovie={jest.fn()}
+      addToWatch={jest.fn()}
+      addToFavorites={jest.fn()}
     />
   );
 

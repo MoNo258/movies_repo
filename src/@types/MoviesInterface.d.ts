@@ -74,3 +74,11 @@ interface IMoviesList {
   total_pages: number;
   total_results: number;
 }
+
+interface IMovieBasic {
+  id: number;
+  overview: string;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+}
