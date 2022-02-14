@@ -1,9 +1,10 @@
 import { api_key } from "../configValues";
 
 export async function getPopularList(page: number) {
+  const key = process.env.api_key || api_key;
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&page=${page}`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${key}&page=${page}`,
       {
         method: "GET",
         headers: {
