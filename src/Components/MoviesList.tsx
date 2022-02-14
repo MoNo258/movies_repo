@@ -103,7 +103,7 @@ const MoviesList: React.FC = () => {
     await getMovieById(id)
       .then((result) => {
         setMovieByIdBasic(() => ({
-          ...result,
+          ...result, // why the state is not updated right away? I am using spread operator so that there is a change in state
         }));
       })
       .then(() => {
@@ -112,6 +112,7 @@ const MoviesList: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+
     // const result = await getMovieById(id);
     // setMovieByIdBasic(() => ({
     //   ...result,
